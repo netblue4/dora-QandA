@@ -60,6 +60,10 @@
         .caret-down::before {
             content: "▼";
         }
+        /* Style for the avatar destination to give it some space */
+        #avatar-destination {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body id="tbllayout">
@@ -79,8 +83,9 @@
             <div id="tree-view-container">
                 <ul id="tree-view"></ul>
             </div>
+            <div id="avatar-destination"></div>
         </td>
-        <td>
+        <td valign="top">
         	<div id="question-view-container">
         	General questions like
             <ol>
@@ -98,14 +103,6 @@
     			<li>What’s the risk if we miss a DORA reporting deadline?</li>
 			</ol>
 			</div>
-        </td>
-        </tr>
-        <tr>
-        <td>
-           <div id="avatar-view-container">
-                <ul id="avatar-view">
-				</ul>
-            </div>            
         </td>
         </tr>
     </table>
@@ -176,7 +173,6 @@
                     // This is a leaf node in terms of hierarchy, but it contains a list of articles
                     li.textContent = key; // This is the "Risk"
                     const leafUl = document.createElement("ul");
-                    // leafUl.classList.add("nested", "active"); // Keep articles initially visible if desired, or toggle
                     leafUl.classList.add("nested"); // Initially hide articles, expand with parent
                     for (const item of obj[key]) {
                         const leafLi = document.createElement("li");
@@ -200,7 +196,6 @@
             }
             return ul;
         }
-
         // Append the generated tree to the #tree-view ul element
         document.getElementById("tree-view").appendChild(createTree(data));
     </script>
@@ -211,19 +206,13 @@
         url=host+"/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiI2N2FkZDYzYTRjNGU0YTZjYjVlN2E1ZDhi%0D%0ANTVhMGNjMiIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3Yz%0D%0ALzY3YWRkNjNhNGM0ZTRhNmNiNWU3YTVkOGI1NWEwY2MyL2Z1bGwvMi4yL3ByZXZpZXdfdGFyZ2V0%0D%0ALndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6IjBj%0D%0AYTUyNGUyNzY4MjRiZGFiZWU4OWQ5ZTRhNGI0Mzg5IiwidXNlcm5hbWUiOiJiNmYxMzFmMmJhZmE0%0D%0AMmE5ODc1ZGVmYjdhOWQ5NDY0MiJ9&inIFrame=1",
         wrapDiv=document.createElement("div");
         wrapDiv.id="heygen-streaming-embed";
-        const container=document.getElementById("avatar-view")
-            //document.createElement("div");
+        // --- CHANGE 1: Create a temporary container instead of finding one in the HTML ---
+        const container=document.createElement("div");
         container.id="heygen-streaming-container";
         const stylesheet=document.createElement("style");
-        // The avatar's own styles are embedded here by its script.
-        // We defined them above in the main <style> block for clarity and to avoid duplication.
-        // This embedded stylesheet will still be created by the avatar's script.
         stylesheet.innerHTML=`
   #heygen-streaming-embed {
     z-index: 9999;
-    //position: fixed;
-    //left: 40px;
-    //bottom: 40px;
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -275,12 +264,11 @@
             }
         }));
         container.appendChild(iframe);
-        // Only append stylesheet if it's not already in the head to avoid duplicate styles
-        // However, the avatar script creates its own style tag regardless.
-        // For this exercise, we'll let it do its thing.
         wrapDiv.appendChild(stylesheet);
         wrapDiv.appendChild(container);
-        document.body.appendChild(wrapDiv);
+        // --- CHANGE 2: Target the new destination div ---
+        document.getElementById("avatar-destination").appendChild(wrapDiv);
+
     }(globalThis);
     </script>
 </body>
