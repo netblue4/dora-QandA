@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>ICT Major Indecent Management</title>
+    <title>ICT Major Incident Management</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
@@ -11,11 +11,21 @@
             padding: 20px;
             box-sizing: border-box; /* Ensure padding doesn't add to width/height */
         }
+        #tbllayout{
+            border: 4px solid #ccc;
+        }
         #instruction {
             margin-bottom: 20px;
         }
         /* Tree view container styles */
         #tree-view-container {
+            max-height: 40vh; /* Set max height to 40% of viewport height */
+            overflow-y: auto; /* Add scrollbar when content exceeds max height */
+            border: 1px solid #ccc; /* Optional: to visualize the container */
+            padding: 10px;
+            margin-bottom: 20px; /* Add some space below the tree view */
+        }
+        #question-view-container {
             max-height: 40vh; /* Set max height to 40% of viewport height */
             overflow-y: auto; /* Add scrollbar when content exceeds max height */
             border: 1px solid #ccc; /* Optional: to visualize the container */
@@ -50,46 +60,58 @@
         .caret-down::before {
             content: "▼";
         }
-
-        /* Avatar styles - no changes made here, just for context */
-        #heygen-streaming-embed {
-            z-index: 9999;
-            position: fixed;
-            left: 140px;
-            bottom: 20px;
-            width: 200px;
-            height: 100px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.12);
-            transition: all linear 0.1s;
-            overflow: hidden;
-            opacity: 0;
-            visibility: hidden;
-        }
-        #heygen-streaming-embed.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        #heygen-streaming-container {
-            width: 100%;
-            height: 100%;
-        }
-        #heygen-streaming-container iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
     </style>
 </head>
-<body>
+<body id="tbllayout">
+    <table>
+        <tr>
+        <td width="60%">
             <div id="instruction">
-                <p><strong>Use the framework browser to navigate DORA's major incident management objectives and the risks that threaten them. Then ask me any question you may have about treating a specific risk or meeting an objective.</strong></p>
+                <p>Browse how we've mapped DORA to the ICT Incident Management capability.</p>
             </div>
+        </td>
+        <td>
+          <p>If you have any questions on ICT Major Incident Management and DORA?<strong>Click chat on our Avatar and ask away.</strong></p>
+        </td>
+        </tr>
+        <tr>
+        <td valign="top">
+            <div id="tree-view-container">
+                <ul id="tree-view"></ul>
+            </div>
+        </td>
+        <td>
+        	<div id="question-view-container">
+        	General questions like
+            <ol>
+  				<li>What does DORA expect from essential and important entities during major ICT incidents?</li>
+			</ol>
+			Specific questions like
+            <ol>
+    			<li>Give me a numbered list on how to classify incidents under DORA?</li>
+    			<li>What are DORA’s time requirements for reporting a major ICT incident?</li>
+    			<li>Which DORA compliance statements are relevant to major incident handling?</li>
+			</ol>			
+			Interpretation questions like
+			<ol>
+				<li>How does DORA Article 11 support major incident management?</li>
+    			<li>What’s the risk if we miss a DORA reporting deadline?</li>
+			</ol>
+			</div>
+        </td>
+        </tr>
+        <tr>
+        <td>
+           <div id="avatar-view-container">
+                <ul id="avatar-view">
+				</ul>
+            </div>            
+        </td>
+        </tr>
+    </table>
 
-    <div id="tree-view-container">
-        <ul id="tree-view"></ul>
-    </div>
+
+
 
     <script>
         const data = {
@@ -189,7 +211,8 @@
         url=host+"/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiI2N2FkZDYzYTRjNGU0YTZjYjVlN2E1ZDhi%0D%0ANTVhMGNjMiIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3Yz%0D%0ALzY3YWRkNjNhNGM0ZTRhNmNiNWU3YTVkOGI1NWEwY2MyL2Z1bGwvMi4yL3ByZXZpZXdfdGFyZ2V0%0D%0ALndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6IjBj%0D%0AYTUyNGUyNzY4MjRiZGFiZWU4OWQ5ZTRhNGI0Mzg5IiwidXNlcm5hbWUiOiJiNmYxMzFmMmJhZmE0%0D%0AMmE5ODc1ZGVmYjdhOWQ5NDY0MiJ9&inIFrame=1",
         wrapDiv=document.createElement("div");
         wrapDiv.id="heygen-streaming-embed";
-        const container=document.createElement("div");
+        const container=document.getElementById("avatar-view")
+            //document.createElement("div");
         container.id="heygen-streaming-container";
         const stylesheet=document.createElement("style");
         // The avatar's own styles are embedded here by its script.
@@ -198,9 +221,9 @@
         stylesheet.innerHTML=`
   #heygen-streaming-embed {
     z-index: 9999;
-    position: fixed;
-    left: 40px;
-    bottom: 40px;
+    //position: fixed;
+    //left: 40px;
+    //bottom: 40px;
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -214,6 +237,12 @@
   #heygen-streaming-embed.show {
     opacity: 1;
     visibility: visible;
+  }
+  #heygen-streaming-embed.expand {
+    height: 366px;
+    width: calc(366px * 16 / 9);
+    border: 0;
+    border-radius: 8px;
   }
   #heygen-streaming-container {
     width: 100%;
