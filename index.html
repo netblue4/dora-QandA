@@ -202,10 +202,13 @@
 
     <script>
     !function(window){
-        const host="https://labs.heygen.com",
-        url=host+"/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiI2N2FkZDYzYTRjNGU0YTZjYjVlN2E1ZDhi%0D%0ANTVhMGNjMiIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3Yz%0D%0ALzY3YWRkNjNhNGM0ZTRhNmNiNWU3YTVkOGI1NWEwY2MyL2Z1bGwvMi4yL3ByZXZpZXdfdGFyZ2V0%0D%0ALndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6IjBj%0D%0AYTUyNGUyNzY4MjRiZGFiZWU4OWQ5ZTRhNGI0Mzg5IiwidXNlcm5hbWUiOiJiNmYxMzFmMmJhZmE0%0D%0AMmE5ODc1ZGVmYjdhOWQ5NDY0MiJ9&inIFrame=1",
+       
+       	const host="https://labs.heygen.com",
+	url=host+"/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiI5ODdlNDcxODg2ZWE0M2E4ODQ0MWY2MzE2%0D%0AYmM1ZTU0MSIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3Yz%0D%0ALzk4N2U0NzE4ODZlYTQzYTg4NDQxZjYzMTZiYzVlNTQxL2Z1bGwvMi4yL3ByZXZpZXdfdGFyZ2V0%0D%0ALndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6IjBj%0D%0AYTUyNGUyNzY4MjRiZGFiZWU4OWQ5ZTRhNGI0Mzg5IiwidXNlcm5hbWUiOiJiNmYxMzFmMmJhZmE0%0D%0AMmE5ODc1ZGVmYjdhOWQ5NDY0MiJ9&inIFrame=1"
+       
         wrapDiv=document.createElement("div");
         wrapDiv.id="heygen-streaming-embed";
+      
         // --- CHANGE 1: Create a temporary container instead of finding one in the HTML ---
         const container=document.createElement("div");
         container.id="heygen-streaming-container";
@@ -271,5 +274,8 @@
 
     }(globalThis);
     </script>
+    
+    
+    
 </body>
 </html>
